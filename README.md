@@ -8,7 +8,7 @@ The APIs provide simple distance measure and multi-object detection in both poll
 
 ## Examples
 
-The examples contained to this library are based on VL53L5CX-SATEL sensor board. You need to connect the VL53L5CX-SATEL sensor board directly to the Nucleo board with wires as explained below:
+The examples contained in this library are based on VL53L5CX-SATEL sensor board. You need to connect the VL53L5CX-SATEL sensor board directly to the Nucleo board with wires as explained below:
 - pin 1 (GND) of the VL53L5CX satellite connected to GND of the Nucleo board
 - pin 2 (IOVDD) of the VL53L5CX satellite connected to 3V3 pin of the Nucleo board
 - pin 3 (AVDD) of the VL53L5CX satellite connected to 5V pin of the Nucleo board

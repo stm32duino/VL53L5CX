@@ -106,7 +106,7 @@ void setup()
 
   // Initialize serial for output.
   SerialPort.begin(115200);
-  SerialPort.println("Starting...");
+  SerialPort.println("Initialize... Please wait, it may take few seconds...");
 
   // Initialize I2C bus.
   DEV_I2C.begin();

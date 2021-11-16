@@ -8,9 +8,7 @@ The APIs provide simple distance measure and multi-object detection in both poll
 
 ## Examples
 
-There are 11 examples with the VL53L5CX library.
-
-To use these examples you need to connect the VL53L5CX satellite sensor directly to the Nucleo board with wires as explained below:
+The examples contained to this library are based on VL53L5CX-SATEL sensor board. You need to connect the VL53L5CX-SATEL sensor board directly to the Nucleo board with wires as explained below:
 - pin 1 (GND) of the VL53L5CX satellite connected to GND of the Nucleo board
 - pin 2 (IOVDD) of the VL53L5CX satellite connected to 3V3 pin of the Nucleo board
 - pin 3 (AVDD) of the VL53L5CX satellite connected to 5V pin of the Nucleo board
@@ -20,6 +18,8 @@ To use these examples you need to connect the VL53L5CX satellite sensor directly
 - pin 7 (SDA) of the VL53L5CX satellite connected to pin D14 (SDA) of the Nucleo board
 - pin 8 (I2C_RST) of the VL53L5CX satellite connected to pin A1 of the Nucleo board
 - pin 9 (INT) of the VL53L5CX satellite connected to pin A2 of the Nucleo board 
+
+There are 11 examples with the VL53L5CX library:
 
 * VL53L5CX_Sat_Calibrate_Xtalk: This example code is to show how to perform the crosstalk calibration.
 

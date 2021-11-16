@@ -4,7 +4,7 @@ Arduino library to support the VL53L5CX Time-of-Flight 8x8 multizone ranging sen
 ## API
 
 This sensor uses I2C to communicate. And I2C instance is required to access to the sensor.
-The APIs provide simple distance measure and multi-object detection in both polling and interrupt modes.
+The APIs provide simple distance measure and multizone detection in both polling and interrupt modes.
 
 ## Examples
 

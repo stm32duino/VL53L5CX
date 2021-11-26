@@ -69,7 +69,7 @@ uint8_t VL53L5CX::WrMulti(
   while (i < size) {
     // If still more than DEFAULT_I2C_BUFFER_LEN bytes to go, DEFAULT_I2C_BUFFER_LEN,
     // else the remaining number of bytes
-    byte current_write_size = (size - i > DEFAULT_I2C_BUFFER_LEN ? DEFAULT_I2C_BUFFER_LEN : size - i);
+    size_t current_write_size = (size - i > DEFAULT_I2C_BUFFER_LEN ? DEFAULT_I2C_BUFFER_LEN : size - i);
 
     p_platform->dev_i2c->beginTransmission((uint8_t)((p_platform->address >> 1) & 0x7F));
 
@@ -128,7 +128,7 @@ uint8_t VL53L5CX::RdMulti(
     while (i < size) {
       // If still more than DEFAULT_I2C_BUFFER_LEN bytes to go, DEFAULT_I2C_BUFFER_LEN,
       // else the remaining number of bytes
-      byte current_read_size = (size - i > DEFAULT_I2C_BUFFER_LEN ? DEFAULT_I2C_BUFFER_LEN : size - i);
+      uint8_t current_read_size = (size - i > DEFAULT_I2C_BUFFER_LEN ? DEFAULT_I2C_BUFFER_LEN : size - i);
       p_platform->dev_i2c->requestFrom(((uint8_t)((p_platform->address >> 1) & 0x7F)),
                                        current_read_size);
       while (p_platform->dev_i2c->available()) {

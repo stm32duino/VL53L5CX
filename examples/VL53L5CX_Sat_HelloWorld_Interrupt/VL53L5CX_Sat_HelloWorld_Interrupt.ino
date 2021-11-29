@@ -124,6 +124,8 @@ void setup()
   // Configure VL53LX satellite component.
   sensor_vl53l5cx_sat.begin();
 
+  sensor_vl53l5cx_sat.init_sensor();
+
   // Start Measurements
   sensor_vl53l5cx_sat.vl53l5cx_start_ranging();
 }

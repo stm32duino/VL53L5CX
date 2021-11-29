@@ -114,6 +114,7 @@ void setup()
   // Configure VL53L5CX satellite component.
   sensor_vl53l5cx_sat.begin();
 
+  sensor_vl53l5cx_sat.init_sensor();
 
   /*********************************/
   /*  Set ranging mode autonomous  */

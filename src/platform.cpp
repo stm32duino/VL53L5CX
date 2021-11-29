@@ -147,24 +147,6 @@ uint8_t VL53L5CX::RdMulti(
   return i != size;
 }
 
-uint8_t VL53L5CX::Reset_Sensor(
-  VL53L5CX_Platform *p_platform)
-{
-  // Set pin LPN to LOW
-  // (Set pin AVDD to LOW)
-  // (Set pin VDDIO  to LOW)
-  digitalWrite(p_platform->lpn_pin, LOW);
-  delay(100);
-
-  // Set pin LPN of to HIGH
-  // (Set pin AVDD of to HIGH)
-  // (Set pin VDDIO of  to HIGH)
-  digitalWrite(p_platform->lpn_pin, HIGH);
-  delay(100);
-
-  return 0;
-}
-
 void VL53L5CX::SwapBuffer(
   uint8_t     *buffer,
   uint16_t     size)

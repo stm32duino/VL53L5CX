@@ -130,6 +130,8 @@ void setup()
   // Configure VL53LX satellite component.
   sensor_vl53l5cx_sat.begin();
 
+  sensor_vl53l5cx_sat.init_sensor();
+
   /*********************************/
   /*   Program motion indicator    */
   /*********************************/

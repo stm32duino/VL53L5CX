@@ -81,9 +81,6 @@ class VL53L5CX {
 
     virtual int begin()
     {
-      uint8_t status = VL53L5CX_STATUS_OK;
-      uint8_t isAlive = 0;
-
       if (_dev.platform.lpn_pin >= 0) {
         pinMode(_dev.platform.lpn_pin, OUTPUT);
         digitalWrite(_dev.platform.lpn_pin, LOW);
@@ -92,29 +89,7 @@ class VL53L5CX {
         pinMode(_dev.platform.i2c_rst_pin, OUTPUT);
         digitalWrite(_dev.platform.i2c_rst_pin, LOW);
       }
-
-      // Reset the sensor by toggling the LPN pin
-      Reset_Sensor(&_dev.platform);
-
-      if (addr != _dev.platform.address) {
-        status = vl53l5cx_set_i2c_address(addr);
-        if (status != VL53L5CX_STATUS_OK) {
-          return VL53L5CX_STATUS_ERROR;
-        }
-      }
-
-      status = vl53l5cx_is_alive(&isAlive);
-      if (!isAlive || status != VL53L5CX_STATUS_OK) {
-        return VL53L5CX_STATUS_ERROR;
-      }
-
-      // Init VL53L5CX sensor
-      status = vl53l5cx_init();
-      if (status != VL53L5CX_STATUS_OK) {
-        return VL53L5CX_STATUS_ERROR;
-      }
-
-      return (int)status;
+      return 0;
     }
 
     virtual int end()
@@ -154,6 +129,36 @@ class VL53L5CX {
         digitalWrite(_dev.platform.lpn_pin, LOW);
       }
       delay(10);
+    }
+
+    int init_sensor()
+    {
+      uint8_t status = VL53L5CX_STATUS_OK;
+      uint8_t isAlive = 0;
+
+      // Reset the sensor by toggling the LPN pin
+      vl53l5cx_off();
+      vl53l5cx_on();
+
+      if (addr != _dev.platform.address) {
+        status = vl53l5cx_set_i2c_address(addr);
+        if (status != VL53L5CX_STATUS_OK) {
+          return VL53L5CX_STATUS_ERROR;
+        }
+      }
+
+      status = vl53l5cx_is_alive(&isAlive);
+      if (!isAlive || status != VL53L5CX_STATUS_OK) {
+        return VL53L5CX_STATUS_ERROR;
+      }
+
+      // Init VL53L5CX sensor
+      status = vl53l5cx_init();
+      if (status != VL53L5CX_STATUS_OK) {
+        return VL53L5CX_STATUS_ERROR;
+      }
+
+      return (int)status;
     }
 
 
@@ -715,19 +720,6 @@ class VL53L5CX {
       uint16_t RegisterAddress,
       uint8_t *p_values,
       uint32_t size);
-
-    /**
-     * @brief Optional function, only used to perform an hardware reset of the
-     * sensor. This function is not used in the API, but it can be used by the host.
-     * This function is not mandatory to fill if user don't want to reset the
-     * sensor.
-     * @param (VL53L5CX_Platform*) p_platform : Pointer of VL53L5CX platform
-     * structure.
-     * @return (uint8_t) status : 0 if OK
-     */
-
-    uint8_t Reset_Sensor(
-      VL53L5CX_Platform *p_platform);
 
     /**
      * @brief Mandatory function, used to wait during an amount of time. It must be

@@ -59,11 +59,9 @@ class VL53L5CX {
      * @param[in] i2c device I2C to be used for communication
      * @param[in] lpn_pin pin to be used as component LPn
      * @param[in] i2c_rst_pin pin to be used as component I2C_RST
-     * @param[in] address I2C address to be used for the sensor instance
      */
-    VL53L5CX(TwoWire *i2c, int lpn_pin, int i2c_rst_pin = -1, uint8_t address = VL53L5CX_DEFAULT_I2C_ADDRESS)
+    VL53L5CX(TwoWire *i2c, int lpn_pin, int i2c_rst_pin = -1)
     {
-      addr = address;
       memset((void *)&_dev, 0x0, sizeof(VL53L5CX_Configuration));
       _dev.platform.address = VL53L5CX_DEFAULT_I2C_ADDRESS;
       _dev.platform.dev_i2c = i2c;
@@ -109,7 +107,6 @@ class VL53L5CX {
      * @brief       PowerOn the sensor
      * @return      void
      */
-    /* turns on the sensor */
     virtual void vl53l5cx_on(void)
     {
       if (_dev.platform.lpn_pin >= 0) {
@@ -122,7 +119,6 @@ class VL53L5CX {
      * @brief       PowerOff the sensor
      * @return      void
      */
-    /* turns off the sensor */
     virtual void vl53l5cx_off(void)
     {
       if (_dev.platform.lpn_pin >= 0) {
@@ -131,7 +127,28 @@ class VL53L5CX {
       delay(10);
     }
 
-    int init_sensor()
+    /**
+     * @brief       Reset I2C peripheral of the sensor
+     * @return      void
+     */
+    virtual void vl53l5cx_i2c_reset(void)
+    {
+      if (_dev.platform.i2c_rst_pin >= 0) {
+        digitalWrite(_dev.platform.i2c_rst_pin, LOW);
+        delay(10);
+        digitalWrite(_dev.platform.i2c_rst_pin, HIGH);
+        delay(10);
+        digitalWrite(_dev.platform.i2c_rst_pin, LOW);
+        delay(10);
+      }
+    }
+
+    /**
+     * @brief  Initialize the sensor
+     * @param (uint8_t) addr : New I2C address.
+     * @return (uint8_t) status : 0 if init_sensor is OK.
+     */
+    int init_sensor(uint8_t addr = VL53L5CX_DEFAULT_I2C_ADDRESS)
     {
       uint8_t status = VL53L5CX_STATUS_OK;
       uint8_t isAlive = 0;
@@ -735,9 +752,6 @@ class VL53L5CX {
       uint32_t TimeMs);
 
   protected:
-
-    /* I2C address to set */
-    uint8_t addr;
 
     /* VL53L5CX Device */
     VL53L5CX_Configuration _dev;

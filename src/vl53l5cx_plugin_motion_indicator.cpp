@@ -75,20 +75,20 @@ uint8_t VL53L5CX::vl53l5cx_motion_indicator_set_distance_motion(
   uint16_t      distance_max_mm)
 {
   uint8_t status = VL53L5CX_STATUS_OK;
-  float_t tmp;
+  float tmp;
 
   if (((distance_max_mm - distance_min_mm) > (uint16_t)1500)
       || (distance_min_mm < (uint16_t)400)
       || (distance_max_mm > (uint16_t)4000)) {
     status |= VL53L5CX_STATUS_INVALID_PARAM;
   } else {
-    tmp = (float_t)((((float_t)distance_min_mm / (float_t)37.5348)
-                     - (float_t)4.0) * (float_t)2048.5);
+    tmp = (float)((((float)distance_min_mm / (float)37.5348)
+                     - (float)4.0) * (float)2048.5);
     p_motion_config->ref_bin_offset = (int32_t)tmp;
 
-    tmp = (float_t)((((((float_t)distance_max_mm -
-                        (float_t)distance_min_mm) / (float_t)10.0) + (float_t)30.02784)
-                     / ((float_t)15.01392)) + (float_t)0.5);
+    tmp = (float)((((((float)distance_max_mm -
+                        (float)distance_min_mm) / (float)10.0) + (float)30.02784)
+                     / ((float)15.01392)) + (float)0.5);
     p_motion_config->feature_length = (uint8_t)tmp;
 
     status |= vl53l5cx_dci_write_data(

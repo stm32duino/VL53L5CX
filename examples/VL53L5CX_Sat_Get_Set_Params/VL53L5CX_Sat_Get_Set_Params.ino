@@ -60,7 +60,11 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#define DEV_I2C Wire
+#ifdef ARDUINO_SAM_DUE
+  #define DEV_I2C Wire1
+#else
+  #define DEV_I2C Wire
+#endif
 #define SerialPort Serial
 
 #ifndef LED_BUILTIN

@@ -47,7 +47,7 @@
 
 
 #ifndef DEFAULT_I2C_BUFFER_LEN
-  #ifdef ARDUINO_SAM_DUE
+  #if defined(ARDUINO_SAM_DUE) || defined(ARDUINO_TEENSY40)
     /* FIXME: It seems that an I2C buffer of BUFFER_LENGTH does not work on Arduino DUE. So, we need to decrease the size */
     #define DEFAULT_I2C_BUFFER_LEN (BUFFER_LENGTH - 2)
   #else

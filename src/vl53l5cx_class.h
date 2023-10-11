@@ -60,10 +60,10 @@ class VL53L5CX {
      * @param[in] lpn_pin pin to be used as component LPn
      * @param[in] i2c_rst_pin pin to be used as component I2C_RST
      */
-    VL53L5CX(TwoWire *i2c, int lpn_pin, int i2c_rst_pin = -1)
+    VL53L5CX(TwoWire *i2c, int lpn_pin, int i2c_rst_pin = -1, uint16_t default_i2c_address = VL53L5CX_DEFAULT_I2C_ADDRESS)
     {
       memset((void *)&_dev, 0x0, sizeof(VL53L5CX_Configuration));
-      _dev.platform.address = VL53L5CX_DEFAULT_I2C_ADDRESS;
+      _dev.platform.address = default_i2c_address;
       _dev.platform.dev_i2c = i2c;
       _dev.platform.lpn_pin = lpn_pin;
       _dev.platform.i2c_rst_pin = i2c_rst_pin;
@@ -148,7 +148,7 @@ class VL53L5CX {
      * @param (uint8_t) addr : New I2C address.
      * @return (uint8_t) status : 0 if init_sensor is OK.
      */
-    int init_sensor(uint8_t addr = VL53L5CX_DEFAULT_I2C_ADDRESS)
+    int init_sensor(uint16_t addr = VL53L5CX_DEFAULT_I2C_ADDRESS)
     {
       uint8_t status = VL53L5CX_STATUS_OK;
       uint8_t isAlive = 0;
